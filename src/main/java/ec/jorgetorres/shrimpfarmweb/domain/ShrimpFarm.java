@@ -1,29 +1,21 @@
 package ec.jorgetorres.shrimpfarmweb.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Data
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
-@Getter
-@Setter
+@Table(name="shrimp_farm")
 public class ShrimpFarm {
   @Id
   @GeneratedValue
   @Column(name="idshrimpfarm")
   private Long id;
+  @NonNull
   private String name;
-
-  @SuppressWarnings("unused")
-  public ShrimpFarm(){}
-
-  public ShrimpFarm(String mame){
-    this.name = mame;
-  }
 
   @Override
   public String toString() {

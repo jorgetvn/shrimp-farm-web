@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShrimpFarmService {
@@ -19,5 +20,17 @@ public class ShrimpFarmService {
 
   public List<ShrimpFarm> list() {
     return shrimpFarmRepository.findAllByOrderByNameAsc();
+  }
+
+  public Optional<ShrimpFarm> findById(Long id) {
+    return shrimpFarmRepository.findById(id);
+  }
+
+  public ShrimpFarm save(ShrimpFarm shrimpFarm) {
+    return shrimpFarmRepository.save(shrimpFarm);
+  }
+
+  public void deleteById(Long id) {
+    shrimpFarmRepository.deleteById(id);
   }
 }
