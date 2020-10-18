@@ -1,4 +1,4 @@
-package ec.jorgetorres.shrimpfarmweb;
+package ec.jorgetorres.shrimpfarmweb.rest;
 
 import ec.jorgetorres.shrimpfarmweb.domain.ShrimpFarm;
 import ec.jorgetorres.shrimpfarmweb.service.ShrimpFarmService;
