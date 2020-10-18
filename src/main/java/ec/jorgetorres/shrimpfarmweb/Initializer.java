@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Stream;
 
@@ -29,8 +30,9 @@ class Initializer implements CommandLineRunner {
     ShrimpFarm shrimpFarm = shrimpFarmRepository.findByName("La Victoria");
     Pond p = Pond.builder().name("San Fernandino")
               .size(new BigDecimal(100.4))
+              .shrimpFarm(shrimpFarm)
               .build();
-    shrimpFarm.setPonds(Collections.singleton(p));
+    shrimpFarm.setPonds(Arrays.asList(p));
     shrimpFarmRepository.save(shrimpFarm);
 
     shrimpFarmRepository.findAll().forEach(System.out::println);

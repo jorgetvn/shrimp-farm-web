@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PondService {
@@ -19,5 +20,17 @@ public class PondService {
 
   public List<Pond> list() {
     return pondRepository.findAllByOrderByNameAsc();
+  }
+
+  public Optional<Pond> findById(Long id) {
+    return pondRepository.findById(id);
+  }
+
+  public Pond save(Pond pond) {
+    return pondRepository.save(pond);
+  }
+
+  public void deleteById(Long id) {
+    pondRepository.deleteById(id);
   }
 }

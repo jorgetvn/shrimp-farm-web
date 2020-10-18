@@ -54,10 +54,13 @@ class PondList extends Component {
       <div>
         <AppNavbar/>
         <Container fluid>
+          <div className="float-left">
+          <Button color="secondary" tag={Link} to="/shrimpfarms">Back</Button>
+          </div>
           <div className="float-right">
             <Button color="success" tag={Link} to="/ponds/new">Add Pond</Button>
           </div>
-          <h3>Ponds</h3>
+          <h3 style={{"text-align": "center"}}>Ponds</h3>
           <Table className="mt-4">
             <thead>
               <tr>
