@@ -151,7 +151,7 @@
                                 </goals>
                                 <phase>compile</phase>
                                 <configuration>
-                                    <arguments>build</arguments>
+                                    <arguments>run-script build</arguments>
                                 </configuration>
                             </execution>
                         </executions>
