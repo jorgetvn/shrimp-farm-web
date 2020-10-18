@@ -3,51 +3,48 @@ import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import {Link} from 'react-router-dom';
 
-class ShrimpFarmList extends Component {
+class PondList extends Component {
   constructor(props) {
     super(props);
-    this.state = {shrimpFarms: [], isLoading: true};
+    this.state = {ponds: [], isLoading: true};
     this.remove = this.remove.bind(this);
   }
 
   componentDidMount() {
     this.setState({isLoading: true});
-    fetch('api/shrimpfarms')
+    fetch('/api/ponds')
       .then(response => response.json())
-      .then(data => this.setState({shrimpFarms: data, isLoading: false}));
+      .then(data => this.setState({ponds: data, isLoading: false}));
   }
 
   async remove(id) {
-    await fetch(`/api/shrimpfarm/${id}`, {
+    await fetch(`/api/pond/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(() => {
-      let updatedShrimpFarms = [...this.state.shrimpFarms].filter(i => i.id !== id);
-      this.setState({shrimpFarms: updatedShrimpFarms});
+      let updatedPonds = [...this.state.ponds].filter(i => i.id !== id);
+      this.setState({ponds: updatedPonds});
     })
   }
 
   render() {
-    const {shrimpFarms, isLoading} = this.state;
+    const {ponds, isLoading} = this.state;
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const shrimpFarmList = shrimpFarms.map(shrimpFarm => {
-      return <tr key={shrimpFarm.id}>
-        <td style={{whiteSpace: 'nowrap'}}>{shrimpFarm.name}</td>
-        <td>{shrimpFarm.ponds.reduce((total, pond) => {
-          return total + pond.size;
-        }, 0)}</td>
+    const pondList = ponds.map(pond => {
+      return <tr key={pond.id}>
+        <td style={{whiteSpace: 'nowrap'}}>{pond.name}</td>
+        <td>{pond.size}</td>
         <td>
           <ButtonGroup>
-            <Button size="sm" color="secondary" tag={Link} to={"/ponds/" + shrimpFarm.id}>Ponds</Button>
-            <Button size="sm" color="primary" tag={Link} to={"/shrimpfarms/" + shrimpFarm.id}>Edit</Button>
-            <Button size="sm" color="danger" onClick={() => this.remove(shrimpFarm.id)}>Delete</Button>
+            <Button size="sm" color="primary" tag={Link} to={"/ponds/" + pond.id}>Edit</Button>
+            <Button size="sm" color="danger" onClick={() => this.remove(pond.id)}>Delete</Button>
           </ButtonGroup>
         </td>
       </tr>
@@ -58,9 +55,9 @@ class ShrimpFarmList extends Component {
         <AppNavbar/>
         <Container fluid>
           <div className="float-right">
-            <Button color="success" tag={Link} to="/shrimpfarms/new">Add Shrimp Farm</Button>
+            <Button color="success" tag={Link} to="/ponds/new">Add Pond</Button>
           </div>
-          <h3>My Shrimp Farms</h3>
+          <h3>Ponds</h3>
           <Table className="mt-4">
             <thead>
               <tr>
@@ -70,7 +67,7 @@ class ShrimpFarmList extends Component {
               </tr>
             </thead>
             <tbody>
-              {shrimpFarmList}
+              {pondList}
             </tbody>
           </Table>
         </Container>
@@ -79,4 +76,4 @@ class ShrimpFarmList extends Component {
   }
 }
 
-export default ShrimpFarmList;
+export default PondList;

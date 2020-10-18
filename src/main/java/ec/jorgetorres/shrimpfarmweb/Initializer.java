@@ -1,11 +1,14 @@
 package ec.jorgetorres.shrimpfarmweb;
 
+import ec.jorgetorres.shrimpfarmweb.domain.Pond;
 import ec.jorgetorres.shrimpfarmweb.domain.ShrimpFarm;
 import ec.jorgetorres.shrimpfarmweb.repository.ShrimpFarmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.stream.Stream;
 
 @Component
@@ -19,9 +22,16 @@ class Initializer implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    Stream.of("La Victoria", "The New Era", "James Blue", "Richmond JUG").forEach(name ->
+    Stream.of("La Victoria", "The New Era", "James Blue", "Richmond Hills").forEach(name ->
         shrimpFarmRepository.save(new ShrimpFarm(name))
     );
+
+    ShrimpFarm shrimpFarm = shrimpFarmRepository.findByName("La Victoria");
+    Pond p = Pond.builder().name("San Fernandino")
+              .size(new BigDecimal(100.4))
+              .build();
+    shrimpFarm.setPonds(Collections.singleton(p));
+    shrimpFarmRepository.save(shrimpFarm);
 
     shrimpFarmRepository.findAll().forEach(System.out::println);
   }
