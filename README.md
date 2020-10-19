@@ -15,3 +15,6 @@ Search and execute the jar in the target folder (current version 0.0.1-SNAPSHOT.
 java -jar target/shrimp-farm-web-0.0.1-SNAPSHOT.jar
 ```
 Run the application in http://localhost:8080
+
+## Demo
+The app is uploaded in heroku in the following link shrimpfarmjtorres.herokuapp.com/
