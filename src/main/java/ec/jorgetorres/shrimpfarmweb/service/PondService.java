@@ -30,7 +30,5 @@ public class PondService {
     return pondRepository.save(pond);
   }
 
-  public void deleteById(Long id) {
-    pondRepository.deleteById(id);
-  }
+  public void deletePond(Pond pond) { pondRepository.delete(pond); }
 }

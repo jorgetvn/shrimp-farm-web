@@ -6,45 +6,48 @@ import {Link} from 'react-router-dom';
 class PondList extends Component {
   constructor(props) {
     super(props);
-    this.state = {ponds: [], isLoading: true};
+    this.state = {shrimpFarm: [], isLoading: true};
     this.remove = this.remove.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setState({isLoading: true});
-    fetch('/api/ponds')
-      .then(response => response.json())
-      .then(data => this.setState({ponds: data, isLoading: false}));
+    const { shrimpFarm } = this.props.location.state;
+    const newShrimpFarm = await (await fetch(`/api/shrimpfarm/${shrimpFarm.id}`)).json();
+    this.setState({shrimpFarm: newShrimpFarm, isLoading: false});
   }
 
-  async remove(id) {
-    await fetch(`/api/pond/${id}`, {
+  async remove(pond) {
+    await fetch('/api/pond/', {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify(pond),
     }).then(() => {
-      let updatedPonds = [...this.state.ponds].filter(i => i.id !== id);
-      this.setState({ponds: updatedPonds});
+      let updatedPonds = [...this.state.shrimpFarm.ponds].filter(i => i.id !== pond.id);
+      let updatedShrimpFarm = this.state.shrimpFarm;
+      updatedShrimpFarm.ponds = updatedPonds;
+      this.setState({shrimpFarm: updatedShrimpFarm});
     })
   }
 
   render() {
-    const {ponds, isLoading} = this.state;
+    const {shrimpFarm, isLoading} = this.state;
 
     if (isLoading) {
       return <p>Loading...</p>;
     }
 
-    const pondList = ponds.map(pond => {
+    const pondList = shrimpFarm.ponds.map(pond => {
       return <tr key={pond.id}>
         <td style={{whiteSpace: 'nowrap'}}>{pond.name}</td>
         <td>{pond.size}</td>
         <td>
           <ButtonGroup>
-            <Button size="sm" color="primary" tag={Link} to={"/ponds/" + pond.id}>Edit</Button>
-            <Button size="sm" color="danger" onClick={() => this.remove(pond.id)}>Delete</Button>
+            <Button size="sm" color="primary" tag={Link} to={{ pathname: '/pond/'+ pond.id, state: { shrimpFarm } }}>Edit</Button>
+            <Button size="sm" color="danger" onClick={() => this.remove(pond)}>Delete</Button>
           </ButtonGroup>
         </td>
       </tr>
@@ -58,9 +61,9 @@ class PondList extends Component {
           <Button color="secondary" tag={Link} to="/shrimpfarms">Back</Button>
           </div>
           <div className="float-right">
-            <Button color="success" tag={Link} to="/ponds/new">Add Pond</Button>
+            <Button color="success" tag={Link} to={{ pathname: '/pond/new', state: { shrimpFarm } }}>Add Pond</Button>
           </div>
-          <h3 style={{"text-align": "center"}}>Ponds</h3>
+          <h3 style={{"textAlign": "center"}}>Ponds - {shrimpFarm.name}</h3>
           <Table className="mt-4">
             <thead>
               <tr>

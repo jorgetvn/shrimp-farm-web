@@ -17,8 +17,9 @@ public class ShrimpFarm {
   private Long id;
   @NonNull
   private String name;
-  @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL, mappedBy = "shrimpFarm")
+  @OneToMany(fetch = FetchType.EAGER, mappedBy="shrimpFarm", cascade=CascadeType.ALL, orphanRemoval = true)
   private List<Pond> ponds;
+
 
   @Override
   public String toString() {

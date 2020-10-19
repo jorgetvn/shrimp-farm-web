@@ -21,7 +21,9 @@ public class Pond {
   private String name;
   private BigDecimal size;
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "idshrimpfarm")
+  @JoinColumn(name="idshrimpfarm")
   @JsonIgnore
   private ShrimpFarm shrimpFarm;
+  @Transient
+  private ShrimpFarm shrimpFarmAux;
 }

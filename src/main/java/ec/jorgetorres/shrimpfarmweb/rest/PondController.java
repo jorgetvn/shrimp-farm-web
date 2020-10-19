@@ -38,21 +38,23 @@ public class PondController {
   }
 
   @PostMapping("/pond")
-  ResponseEntity<Pond> createPond(@Valid @RequestBody Pond shrimpFarm) throws URISyntaxException {
-    Pond result = pondService.save(shrimpFarm);
+  public ResponseEntity<Pond> createPond(@Valid @RequestBody Pond pond) throws URISyntaxException {
+    pond.setShrimpFarm(pond.getShrimpFarmAux());
+    Pond result = pondService.save(pond);
     return ResponseEntity.created(new URI("/api/pond/" + result.getId()))
         .body(result);
   }
 
   @PutMapping("/pond/{id}")
-  ResponseEntity<Pond> updatePond(@Valid @RequestBody Pond shrimpFarm) {
-    Pond result = pondService.save(shrimpFarm);
+  ResponseEntity<Pond> updatePond(@Valid @RequestBody Pond pond) {
+    pond.setShrimpFarm(pond.getShrimpFarmAux());
+    Pond result = pondService.save(pond);
     return ResponseEntity.ok().body(result);
   }
 
-  @DeleteMapping("/pond/{id}")
-  public ResponseEntity<?> deletePond(@PathVariable Long id) {
-    pondService.deleteById(id);
+  @DeleteMapping("/pond/")
+  public ResponseEntity<?> deletePond(@Valid @RequestBody Pond pond) {
+    pondService.deletePond(pond);
     return ResponseEntity.ok().build();
   }
 }
