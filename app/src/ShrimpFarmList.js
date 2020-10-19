@@ -45,7 +45,7 @@ class ShrimpFarmList extends Component {
         }, 0)}</td>
         <td>
           <ButtonGroup>
-            <Button size="sm" color="secondary" tag={Link} to={"/ponds/" + shrimpFarm.id}>Ponds</Button>
+            <Button size="sm" color="secondary" tag={Link} to={{ pathname: '/ponds/', state: { shrimpFarm } }}>Ponds</Button>
             <Button size="sm" color="primary" tag={Link} to={"/shrimpfarms/" + shrimpFarm.id}>Edit</Button>
             <Button size="sm" color="danger" onClick={() => this.remove(shrimpFarm.id)}>Delete</Button>
           </ButtonGroup>
