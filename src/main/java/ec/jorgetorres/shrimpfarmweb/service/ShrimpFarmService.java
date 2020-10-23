@@ -19,7 +19,7 @@ public class ShrimpFarmService {
   }
 
   public List<ShrimpFarm> list() {
-    return shrimpFarmRepository.findAllByOrderByNameAsc();
+    return shrimpFarmRepository.findAllByOrderByCreatedDateTimeAsc();
   }
 
   public Optional<ShrimpFarm> findById(Long id) {

@@ -60,7 +60,7 @@ class ShrimpFarmEdit extends Component {
           <FormGroup>
             <Label for="name">Name</Label>
             <Input type="text" name="name" id="name" value={item.name || ''}
-                   onChange={this.handleChange} autoComplete="name"/>
+                   onChange={this.handleChange} autoComplete="name" required/>
           </FormGroup>
           <FormGroup>
             <Button color="primary" type="submit">Save</Button>{' '}

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ShrimpFarmRepository extends JpaRepository<ShrimpFarm, Long> {
-  List<ShrimpFarm> findAllByOrderByNameAsc();
+  List<ShrimpFarm> findAllByOrderByCreatedDateTimeAsc();
   ShrimpFarm findByName(String name);
 }

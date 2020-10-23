@@ -66,12 +66,12 @@ class PondEdit extends Component {
           <FormGroup>
             <Label for="name">Name</Label>
             <Input type="text" name="name" id="name" value={item.name || ''}
-                   onChange={this.handleChange} autoComplete="name"/>
+                   onChange={this.handleChange} autoComplete="name" required/>
           </FormGroup>
           <FormGroup>
-            <Label for="name">Size</Label>
-            <Input type="number" name="size" id="size" value={item.size || 0}
-                   onChange={this.handleChange} autoComplete="size"/>
+            <Label for="name">Size (Hectares)</Label>
+            <Input type="number" placeholder="1.0" step="0.01" min="1" name="size" id="size" value={item.size || null}
+                   onChange={this.handleChange} autoComplete="size" required/>
           </FormGroup>
           <FormGroup>
             <Button color="primary" type="submit">Save</Button>{' '}
