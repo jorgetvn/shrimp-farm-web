@@ -38,7 +38,7 @@ class PondEdit extends Component {
     event.preventDefault();
     const {item} = this.state;
     const { shrimpFarm} = this.props.location.state;
-    item.shrimpFarmAux = shrimpFarm;
+    item.idShrimpFarm = shrimpFarm.id;
 
     await fetch(`/api/pond`, {
       method: (item.id) ? 'PUT' : 'POST',

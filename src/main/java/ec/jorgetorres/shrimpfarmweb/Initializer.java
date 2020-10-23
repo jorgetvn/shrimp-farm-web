@@ -2,7 +2,9 @@ package ec.jorgetorres.shrimpfarmweb;
 
 import ec.jorgetorres.shrimpfarmweb.domain.Pond;
 import ec.jorgetorres.shrimpfarmweb.domain.ShrimpFarm;
+import ec.jorgetorres.shrimpfarmweb.repository.PondRepository;
 import ec.jorgetorres.shrimpfarmweb.repository.ShrimpFarmRepository;
+import ec.jorgetorres.shrimpfarmweb.service.PondService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,10 +17,12 @@ import java.util.stream.Stream;
 @Component
 class Initializer implements CommandLineRunner {
   private final ShrimpFarmRepository shrimpFarmRepository;
+  private final PondService pondService;
 
   @Autowired
-  public Initializer(ShrimpFarmRepository shrimpFarmRepository) {
+  public Initializer(ShrimpFarmRepository shrimpFarmRepository, PondService pondService) {
     this.shrimpFarmRepository = shrimpFarmRepository;
+    this.pondService = pondService;
   }
 
   @Override
@@ -28,13 +32,12 @@ class Initializer implements CommandLineRunner {
     );
 
     ShrimpFarm shrimpFarm = shrimpFarmRepository.findByName("La Victoria");
-    Pond p = Pond.builder().name("San Fernandino")
+    Pond pond = Pond.builder().name("San Fernandino")
               .size(new BigDecimal(100.4))
-              .shrimpFarm(shrimpFarm)
+              .idShrimpFarm(shrimpFarm.getId())
               .build();
-    shrimpFarm.setPonds(Arrays.asList(p));
-    shrimpFarmRepository.save(shrimpFarm);
 
+    pondService.save(pond);
     shrimpFarmRepository.findAll().forEach(System.out::println);
   }
 }

@@ -39,7 +39,7 @@ public class Pond {
   @JsonIgnore
   private ShrimpFarm shrimpFarm;
   @Transient
-  private ShrimpFarm shrimpFarmAux;
+  private Long idShrimpFarm;
   @LastModifiedDate
   private LocalDateTime lastModifiedDateTime;
   @CreatedDate

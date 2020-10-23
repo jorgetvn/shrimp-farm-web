@@ -34,7 +34,6 @@ public class PondController {
 
   @PostMapping("/pond")
   public ResponseEntity<Pond> createPond(@Valid @RequestBody Pond pond) throws URISyntaxException {
-    pond.setShrimpFarm(pond.getShrimpFarmAux());
     Pond result = pondService.save(pond);
     return ResponseEntity.created(new URI("/api/pond/" + result.getId()))
         .body(result);
@@ -42,7 +41,6 @@ public class PondController {
 
   @PutMapping("/pond")
   ResponseEntity<Pond> updatePond(@Valid @RequestBody Pond pond) {
-    pond.setShrimpFarm(pond.getShrimpFarmAux());
     Pond result = pondService.save(pond);
     return ResponseEntity.ok().body(result);
   }

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PondRepository extends JpaRepository<Pond, Long> {
-  List<Pond> findAllByOrderByNameAsc();
+  List<Pond> findAllByOrderByCreatedDateTimeAsc();
   Pond findByName(String name);
 }

@@ -23,7 +23,7 @@ public class ShrimpFarm {
   @NonNull
   @Column(unique = true)
   private String name;
-  @OneToMany(fetch = FetchType.EAGER, mappedBy = "shrimpFarm", cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "shrimpFarm", cascade = CascadeType.REMOVE, orphanRemoval = true)
   private List<Pond> ponds;
   @LastModifiedDate
   private LocalDateTime lastModifiedDateTime;
