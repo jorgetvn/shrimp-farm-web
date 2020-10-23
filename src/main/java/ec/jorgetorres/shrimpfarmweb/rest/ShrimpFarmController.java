@@ -44,7 +44,7 @@ public class ShrimpFarmController {
         .body(result);
   }
 
-  @PutMapping("/shrimpfarm/{id}")
+  @PutMapping("/shrimpfarm")
   ResponseEntity<ShrimpFarm> updateShrimpFarm(@Valid @RequestBody ShrimpFarm shrimpFarm) {
     ShrimpFarm result = shrimpFarmService.save(shrimpFarm);
     return ResponseEntity.ok().body(result);

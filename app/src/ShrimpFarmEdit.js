@@ -37,7 +37,7 @@ class ShrimpFarmEdit extends Component {
     event.preventDefault();
     const {item} = this.state;
 
-    await fetch(`/api/shrimpfarm${(item.id) ? `/${item.id}` : ''}`, {
+    await fetch(`/api/shrimpfarm`, {
       method: (item.id) ? 'PUT' : 'POST',
       headers: {
         'Accept': 'application/json',

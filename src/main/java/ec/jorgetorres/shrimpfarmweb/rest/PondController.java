@@ -25,11 +25,6 @@ public class PondController {
     this.pondService = pondService;
   }
 
-  @GetMapping("/ponds")
-  Collection<Pond> ponds() {
-    return pondService.list();
-  }
-
   @GetMapping("/pond/{id}")
   ResponseEntity<?> getPond(@PathVariable Long id) {
     Optional<Pond> pond = pondService.findById(id);
@@ -45,7 +40,7 @@ public class PondController {
         .body(result);
   }
 
-  @PutMapping("/pond/{id}")
+  @PutMapping("/pond")
   ResponseEntity<Pond> updatePond(@Valid @RequestBody Pond pond) {
     pond.setShrimpFarm(pond.getShrimpFarmAux());
     Pond result = pondService.save(pond);

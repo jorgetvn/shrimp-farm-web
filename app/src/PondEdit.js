@@ -40,7 +40,7 @@ class PondEdit extends Component {
     const { shrimpFarm} = this.props.location.state;
     item.shrimpFarmAux = shrimpFarm;
 
-    await fetch(`/api/pond${(item.id) ? `/${item.id}` : ''}`, {
+    await fetch(`/api/pond`, {
       method: (item.id) ? 'PUT' : 'POST',
       headers: {
         'Accept': 'application/json',
