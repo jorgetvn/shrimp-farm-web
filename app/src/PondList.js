@@ -8,6 +8,12 @@ class PondList extends Component {
     super(props);
     this.state = {shrimpFarm: [], isLoading: true};
     this.remove = this.remove.bind(this);
+    this.datetimeformat =  Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+      hour: 'numeric', minute: 'numeric', second: 'numeric'
+    });
   }
 
   async componentDidMount() {
@@ -35,6 +41,7 @@ class PondList extends Component {
 
   render() {
     const {shrimpFarm, isLoading} = this.state;
+    const datetimeformat = this.datetimeformat;
 
     if (isLoading) {
       return <p>Loading...</p>;
@@ -44,8 +51,8 @@ class PondList extends Component {
       return <tr key={pond.id}>
         <td style={{whiteSpace: 'nowrap'}}>{pond.name}</td>
         <td>{pond.size} ha</td>
-        <td>{pond.createdDateTime}</td>
-        <td>{pond.lastModifiedDateTime}</td>
+        <td>{datetimeformat.format(Date.parse(pond.createdDateTime))}</td>
+        <td>{datetimeformat.format(Date.parse(pond.lastModifiedDateTime))}</td>
         <td>
           <ButtonGroup>
             <Button size="sm" color="primary" tag={Link} to={{ pathname: '/pond/'+ pond.id, state: { shrimpFarm } }}>Edit</Button>

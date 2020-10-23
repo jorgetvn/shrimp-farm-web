@@ -8,6 +8,12 @@ class ShrimpFarmList extends Component {
     super(props);
     this.state = {shrimpFarms: [], isLoading: true};
     this.remove = this.remove.bind(this);
+    this.datetimeformat =  Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+      hour: 'numeric', minute: 'numeric', second: 'numeric'
+    });
   }
 
   componentDidMount() {
@@ -32,6 +38,7 @@ class ShrimpFarmList extends Component {
 
   render() {
     const {shrimpFarms, isLoading} = this.state;
+    const datetimeformat = this.datetimeformat;
 
     if (isLoading) {
       return <p>Loading...</p>;
@@ -43,8 +50,8 @@ class ShrimpFarmList extends Component {
         <td>{shrimpFarm.ponds.reduce((total, pond) => {
           return total + pond.size;
         }, 0)} ha</td>
-        <td>{shrimpFarm.createdDateTime}</td>
-        <td>{shrimpFarm.lastModifiedDateTime}</td>
+        <td>{datetimeformat.format(Date.parse(shrimpFarm.createdDateTime))}</td>
+        <td>{datetimeformat.format(Date.parse(shrimpFarm.lastModifiedDateTime))}</td>
         <td>
           <ButtonGroup>
             <Button size="sm" color="secondary" tag={Link} to={{ pathname: '/ponds/', state: { shrimpFarm } }}>Ponds</Button>
