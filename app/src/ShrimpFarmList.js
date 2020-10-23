@@ -8,12 +8,14 @@ class ShrimpFarmList extends Component {
     super(props);
     this.state = {shrimpFarms: [], isLoading: true};
     this.remove = this.remove.bind(this);
+    this.orderTable = this.orderTable.bind(this);
     this.datetimeformat =  Intl.DateTimeFormat("en-GB", {
       year: "numeric",
       month: "long",
       day: "2-digit",
       hour: 'numeric', minute: 'numeric', second: 'numeric'
     });
+    this.sorting = [];
   }
 
   componentDidMount() {
@@ -34,6 +36,40 @@ class ShrimpFarmList extends Component {
       let updatedShrimpFarms = [...this.state.shrimpFarms].filter(i => i.id !== id);
       this.setState({shrimpFarms: updatedShrimpFarms});
     })
+  }
+
+  orderTable(prop) {
+    const propFound = this.sorting.find(p => p.prop === prop);
+    if (propFound) {
+      if (propFound.direction === "ASC")
+        propFound.direction = "DESC"
+      else {
+        const index = this.sorting.findIndex(p => p === propFound);
+        if (index > -1)
+          this.sorting.splice(index, 1);
+      }
+    } else {
+      this.sorting.push({
+        direction: "ASC",
+        prop: prop
+      })
+    }
+
+    if (this.sorting.length > 0) {
+      fetch('api/shrimpfarmssorted', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.sorting)
+      }).then(response => response.json())
+        .then(data => this.setState({shrimpFarms: data, isLoading: false}));
+    } else {
+      fetch('api/shrimpfarms')
+        .then(response => response.json())
+        .then(data => this.setState({shrimpFarms: data, isLoading: false}));
+    }
   }
 
   render() {
@@ -73,10 +109,16 @@ class ShrimpFarmList extends Component {
           <Table className="mt-4">
             <thead>
               <tr>
-                <th width="20%">Name</th>
+                <th width="20%">Name -
+                  <Button size="sm" onClick={() => this.orderTable("name")}>Sort</Button>
+                </th>
                 <th width="20%">Size (Hectares)</th>
-                <th width="20%">Created Date</th>
-                <th width="20%">Last Modified Date</th>
+                <th width="20%">Created Date -
+                  <Button size="sm" onClick={() => this.orderTable("createdDateTime")}>Sort</Button>
+                </th>
+                <th width="20%">Last Modified Date -
+                  <Button size="sm" onClick={() => this.orderTable("lastModifiedDateTime")}>Sort</Button>
+                </th>
                 <th width="20%">Actions</th>
               </tr>
             </thead>

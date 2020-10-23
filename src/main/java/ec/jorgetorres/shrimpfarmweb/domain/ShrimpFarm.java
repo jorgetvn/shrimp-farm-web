@@ -29,7 +29,6 @@ public class ShrimpFarm {
   private LocalDateTime lastModifiedDateTime;
   @CreatedDate
   private LocalDateTime createdDateTime;
-
   @Override
   public String toString() {
     return "ShrimpFarm [name=" + name + "]";

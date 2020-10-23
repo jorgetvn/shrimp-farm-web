@@ -1,6 +1,7 @@
 package ec.jorgetorres.shrimpfarmweb.rest;
 
 import ec.jorgetorres.shrimpfarmweb.domain.ShrimpFarm;
+import ec.jorgetorres.shrimpfarmweb.domain.SortDTO;
 import ec.jorgetorres.shrimpfarmweb.service.ShrimpFarmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,6 +30,11 @@ public class ShrimpFarmController {
   @GetMapping("/shrimpfarms")
   Collection<ShrimpFarm> shrimpfarms() {
     return shrimpFarmService.list();
+  }
+
+  @PostMapping("/shrimpfarmssorted")
+  Collection<ShrimpFarm> shrimpfarmssorted(@RequestBody(required = false) List<SortDTO> orderingList) {
+    return shrimpFarmService.listSorted(orderingList);
   }
 
   @GetMapping("/shrimpfarm/{id}")
