@@ -21,6 +21,3 @@ The app is uploaded in heroku in the following link: https://shrimpfarmjtorres.h
 
 ## API Documentation (Swagger API Documentation)
 API Documentation can be found in: https://shrimpfarmjtorres.herokuapp.com/swagger-ui/
-
-## H2 Queries
-External access the database is available here: https://shrimpfarmjtorres.herokuapp.com/h2-console (no password)
